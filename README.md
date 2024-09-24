@@ -1,4 +1,4 @@
-# Byzantine-Resilient-Consensus-Optimization
+# Byzantine Resilient Consensus Optimization
 
 
 # ACC22 - Resilient Constrained Consensus over Complete Graphs via Feasibility Redundancy
