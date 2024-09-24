@@ -1,5 +1,6 @@
 # Byzantine-Resilient-Consensus-Optimization
 
+
 # ACC22 - Resilient Constrained Consensus over Complete Graphs via Feasibility Redundancy
 This paper addresses the problem of achieving a resilient consensus in a distributed multi-agent system under Byzantine faults, where some agents may behave maliciously or unpredictably. The focus is on scenarios where agents must reach a consensus while adhering to constraints defined by convex sets. The paper introduces a distributed algorithm that filters out potentially faulty agents and ensures the remaining normal agents reach a consensus on a value within their convex sets. Key contributions include conditions for ensuring feasibility and achieving exponentially fast consensus.
 
