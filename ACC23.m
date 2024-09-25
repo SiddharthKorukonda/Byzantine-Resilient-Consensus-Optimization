@@ -1,9 +1,9 @@
 classdef Agent
     properties
-        value        % Current value of the agent
-        neighbors    % Set of neighbors
-        objective    % Local objective function
-        byzantine    % Boolean to identify if the agent is Byzantine
+        value        
+        neighbors    
+        objective    
+        byzantine    
     end
     
     methods
@@ -15,19 +15,18 @@ classdef Agent
         end
         
         function subgrad = subgradient(obj, x)
-            % Returns the subgradient of the agent's local objective function at x
             subgrad = obj.objective.subgradient(x);
         end
         
         function filtered_values = filter_values(obj, received_values, f)
-            % Filters out the f furthest values (Byzantine filtering)
+
             distances = vecnorm(obj.value - received_values, 2, 2);
             [~, sorted_indices] = sort(distances);
             filtered_values = received_values(sorted_indices(1:end-f), :);
         end
         
         function obj = update_value(obj, received_values, alpha, f)
-            % Filter Byzantine agents and update the agent's value
+            
             retained_values = obj.filter_values(received_values, f);
             consensus_value = mean(retained_values, 1);
             obj.value = consensus_value - alpha * obj.subgradient(consensus_value);
@@ -55,14 +54,14 @@ classdef ConsensusSystem
                 for i = 1:length(obj.agents)
                     agent = obj.agents(i);
                     if ~agent.byzantine
-                        % Gather values from neighbors
+                   
                         neighbor_values = vertcat(obj.agents(agent.neighbors).value);
-                        % Update agent's value
+                     
                         agent = agent.update_value(neighbor_values, obj.alpha, obj.f);
                     end
                     new_values(i, :) = agent.value;
                 end
-                % Update all agents' values
+                
                 for i = 1:length(obj.agents)
                     obj.agents(i).value = new_values(i, :);
                 end
@@ -71,18 +70,18 @@ classdef ConsensusSystem
     end
 end
 
-% Example usage:
+
 num_agents = 5;
 dimension = 2;
 alpha = 0.01;
-f = 1; % Number of Byzantine agents to filter out
+f = 1; 
 
 agents = Agent.empty(num_agents, 0);
 for i = 1:num_agents
-    initial_value = rand(1, dimension); % Random initial values
-    neighbors = setdiff(1:num_agents, i); % All other agents are neighbors
-    objective = @(x) sum(x.^2); % Simple quadratic objective function for each agent
-    byzantine = (i == 1); % First agent is Byzantine
+    initial_value = rand(1, dimension); 
+    neighbors = setdiff(1:num_agents, i); 
+    objective = @(x) sum(x.^2); 
+    byzantine = (i == 1); 
     agents(i) = Agent(initial_value, neighbors, objective, byzantine);
 end
 
