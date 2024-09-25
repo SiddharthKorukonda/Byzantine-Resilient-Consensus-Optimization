@@ -59,19 +59,3 @@ classdef ConsensusSystem
         end
     end
 end
-
-% Example usage:
-agents = Agent.empty(5, 0);
-for i = 1:5
-    initial_value = rand(1, 2); % 2D random initial values
-    convex_set.A = eye(2); % A matrix for Ax <= b
-    convex_set.b = ones(2, 1); % b vector for Ax <= b
-    agents(i) = Agent(initial_value, convex_set);
-end
-
-consensus_system = ConsensusSystem(agents, 0.1, 1);
-final_values = consensus_system.run_consensus(10);
-
-for i = 1:length(agents)
-    fprintf('Agent %d final value: [%f, %f]\n', i, agents(i).value(1), agents(i).value(2));
-end
